@@ -9,12 +9,12 @@ package  {
 			return Math.floor(_price);
 		}
 		
-		public function get pennies():int {
-			return _price - pounds;
+		public function get pennies():Number {
+			return Math.floor((_price - pounds) * 100);
 		}
 		
 		public function toString():String {
-			return "£" + pounds + "." + pennies;
+			return pennies < 10 ? "£" + pounds + ".0" + pennies : "£" + pounds + "." + pennies;
 		}
 		
 		public function addPennies(number:uint):void {

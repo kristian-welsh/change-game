@@ -21,7 +21,9 @@ package {
 			removeEventListener(Event.ADDED_TO_STAGE, startGame);
 			
 			_cost = new Price(randomNumBetween(5, 200));
-			_payment = new Price(randomNumBetween(_cost.pounds, _cost.pounds + 100));
+			_cost.addPennies(randomNumBetween(0, 99));
+			_payment = new Price(randomNumBetween(_cost.pounds + 5, _cost.pounds + 100));
+			_payment.addPennies(randomNumBetween(0, 99));
 			_change = new Price(0);
 			_gameText = new TextField();
 			stage.addChild(_gameText);
@@ -49,7 +51,7 @@ package {
 		}
 		
 		private function finishGame(e:MouseEvent):void {
-			if (_change.pounds == _payment.pounds - _cost.pounds) showWin();
+			if (_change.pounds == _payment.pounds - _cost.pounds && _change.pennies == _payment.pennies - _cost.pennies) showWin();
 			else showLoss();
 		}
 		
