@@ -10,11 +10,13 @@ package  {
 		}
 		
 		public function get pennies():Number {
-			return Math.floor((_price - pounds) * 100);
+			return Util.round((_price - pounds), 0.01, Math.round);
 		}
 		
 		public function toString():String {
-			return pennies < 10 ? "£" + pounds + ".0" + pennies : "£" + pounds + "." + pennies;
+			if (pennies < 10)
+				return "£" + pounds + ".0" + pennies
+			return "£" + pounds + "." + pennies;
 		}
 		
 		public function addPennies(number:uint):void {

@@ -2,12 +2,13 @@ package {
 	import flash.display.*;
 	import flash.events.*;
 	import flash.text.*
+	import flash.utils.Dictionary;
 	
 	public class Main extends Sprite {
-		private var _cost:Price;
-		private var _payment:Price;
-		private var _change:Price;
-		private var _gameText:TextField;
+		private var _cost:Price = new Price(Util.randomNumBetween(5, 200));
+		private var _payment:Price = new Price(Util.randomNumBetween(_cost.pounds + 5, _cost.pounds + 100));
+		private var _change:Price = new Price(0);
+		private var _gameText:TextField = new TextField();
 		
 		public function Main():void {
 			if (stage) startGame();
@@ -15,23 +16,20 @@ package {
 		}
 		
 		private function startGame(event:Event = null):void {
-			win.visible = false;
-			lose.visible = false;
-			addListeners();
 			removeEventListener(Event.ADDED_TO_STAGE, startGame);
 			
-			_cost = new Price(randomNumBetween(5, 200));
-			_cost.addPennies(randomNumBetween(0, 99));
-			_payment = new Price(randomNumBetween(_cost.pounds + 5, _cost.pounds + 100));
-			_payment.addPennies(randomNumBetween(0, 99));
-			_change = new Price(0);
-			_gameText = new TextField();
-			stage.addChild(_gameText);
+			setupStage();
+			
+			_cost.addPennies(Util.randomNumBetween(0, 99));
+			_payment.addPennies(Util.randomNumBetween(0, 99));
 			updateText();
 		}
 		
-		private function updateText():void {
-			_gameText.text = "Cost: " + _cost + "\nPayment: " + _payment + "\nChange: " + _change;
+		private function setupStage():void {
+			win.visible = false;
+			lose.visible = false;
+			addListeners();
+			stage.addChild(_gameText);
 		}
 		
 		private function addListeners():void {
@@ -123,8 +121,8 @@ package {
 			updateText();
 		}
 		
-		private function randomNumBetween(minNum:Number, maxNum:Number):Number {
-			return Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+		private function updateText():void {
+			_gameText.text = "Cost: " + _cost + "\nPayment: " + _payment + "\nChange: " + _change;
 		}
 	}
 }
