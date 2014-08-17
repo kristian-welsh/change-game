@@ -6,11 +6,11 @@ package  {
 		}
 		
 		public function get pounds():int {
-			return Math.floor(_price);
+			return Util.round(_price, 1, Math.floor);
 		}
 		
 		public function get pennies():Number {
-			return Util.round((_price - pounds), 0.01, Math.round);
+			return Util.round(_price - pounds, 0.01, Math.round);
 		}
 		
 		public function toString():String {
